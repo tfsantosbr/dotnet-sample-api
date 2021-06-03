@@ -25,7 +25,7 @@ jobs:
         with:
           dotnet-version: 5.0.102
 
-      - name: Testes com .NET 5 + xUnit + Fluent Assertions + Coverlet
+      - name: Testes com .NET 5 + xUnit + Coverlet
         run: dotnet test ${{ env.TEST_PROJECT_PATH }} --verbosity minimal --logger:"html;LogFileName=tests-results.html" --collect:"XPlat Code Coverage"
 
       - name: Instalar ReportGenerator

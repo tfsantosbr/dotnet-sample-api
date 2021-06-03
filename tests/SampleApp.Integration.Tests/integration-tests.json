@@ -24,8 +24,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Unprocessed Entity Result - Status 422\", function () {\r",
@@ -99,7 +99,6 @@
 									"    \"confirmPassword\": \"Abcd1234\",\r",
 									"    \"birthDate\": \"2021-06-03\"\r",
 									"};\r",
-									"console.log('body', createUserBody);\r",
 									"\r",
 									"pm.sendRequest({\r",
 									"    url: `${host}/users`,\r",
@@ -123,8 +122,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Unprocessed Entity Result - Status 422\", function () {\r",
@@ -184,6 +183,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
 									"pm.test(\"Successful POST request - Status 201\", function () {\r",
 									"    pm.response.to.have.status(201)\r",
 									"});\r",
@@ -191,10 +194,6 @@
 									"pm.test(\"User ID is present\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 									"});\r",
 									""
 								],
@@ -233,8 +232,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Status code is 404\", function () {\r",
@@ -301,8 +300,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Response time is less than 200ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"pm.test(\"Response time is less than 500ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Status code is 204\", function () {\r",
