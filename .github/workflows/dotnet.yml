@@ -2,74 +2,73 @@ name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 env:
-  CAMINHO_PROJETO_TESTES: ./tests/SampleApp.Tests
-  CAMINHO_PROJETO: ./Groffe.Distancias/Groffe.Distancias.csproj
-  
+  TEST_PROJECT_PATH: ./tests/SampleApp.Tests
+
 jobs:
 
   tests:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup .NET 5
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.102
+      - name: Setup .NET 5
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.102
 
-    - name: Testes com .NET 5 + xUnit + Fluent Assertions + Coverlet
-      run: dotnet test ${{ env.CAMINHO_PROJETO_TESTES }} --verbosity minimal --logger:"html;LogFileName=resultado-testes.html" --collect:"XPlat Code Coverage"
+      - name: Testes com .NET 5 + xUnit + Fluent Assertions + Coverlet
+        run: dotnet test ${{ env.TEST_PROJECT_PATH }} --verbosity minimal --logger:"html;LogFileName=tests-results.html" --collect:"XPlat Code Coverage"
 
-    - name: Instalar ReportGenerator
-      if: success()
-      run: dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.8.4
-  
-    - name: Gerar relatório de cobertura de testes com ReportGenerator
-      if: success()
-      run: |
-        cd ${{ env.CAMINHO_PROJETO_TESTES }}/TestResults
-        # Acessar diretório gerado com o XML de Cobertura de código
-        cd $(ls -d */|head -n 1)
-        reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
-    - name: Upload como Artifact dos Reports de Resultado de Testes Executados com Sucesso + Cobertura de Código
-      uses: actions/upload-artifact@v2.2.2
-      env:
-        CAMINHO_RESULTADO_TESTES: ${{ env.CAMINHO_PROJETO_TESTES }}/TestResults/
-      if: success()
-      with:
-        name: resultado-testes
-        path: ${{ env.CAMINHO_RESULTADO_TESTES }}
-        retention-days: 30
+      - name: Instalar ReportGenerator
+        if: success()
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.8.4
 
-    - name: Upload como Artifact do Report de Testes com Falhas
-      uses: actions/upload-artifact@v2.2.2
-      if: failure()
-      env:
-        CAMINHO_RELATORIO_ERROS: ${{ env.CAMINHO_PROJETO_TESTES }}/TestResults/resultado-testes.html
-      with:
-        name: resultado-erros-testes
-        path: ${{ env.CAMINHO_RELATORIO_ERROS }}
-        retention-days: 30
-        
+      - name: Gerar relatório de cobertura de testes com ReportGenerator
+        if: success()
+        run: |
+          cd ${{ env.TEST_PROJECT_PATH }}/TestResults
+          cd $(ls -d */|head -n 1)
+          reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
+
+      - name: Upload como Artifact dos Reports de Resultado de Testes Executados com Sucesso + Cobertura de Código
+        uses: actions/upload-artifact@v2.2.2
+        env:
+          TESTS_REPORT_PATH: ${{ env.TEST_PROJECT_PATH }}/TestResults/
+        if: success()
+        with:
+          name: tests-results
+          path: ${{ env.TESTS_REPORT_PATH }}
+          retention-days: 30
+
+      - name: Upload como Artifact do Report de Testes com Falhas
+        uses: actions/upload-artifact@v2.2.2
+        if: failure()
+        env:
+          TESTS_ERRORS_REPORT_PATH: ${{ env.TEST_PROJECT_PATH }}/TestResults/tests-results.html
+        with:
+          name: tests-errors-result
+          path: ${{ env.TESTS_ERRORS_REPORT_PATH }}
+          retention-days: 30
+
   build:
-
+    needs: [tests]
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-        
-    - name: Restore dependencies
-      run: dotnet restore
-      
-    - name: Build
-      run: dotnet build --no-restore
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore
