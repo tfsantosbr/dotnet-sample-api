@@ -1,0 +1,335 @@
+{
+	"info": {
+		"_postman_id": "99f08d07-37f4-4e3b-82cb-21afda2de370",
+		"name": "NET Sample API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create invalid user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Unprocessed Entity Result - Status 422\", function () {\r",
+									"    pm.response.to.have.status(422)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Contains 'FirstName' validation errors\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.find(item => item.code === \"FirstName\")).not.eq(undefined);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Contains 'LastName' validation errors\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.find(item => item.code === \"LastName\")).not.eq(undefined);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Contains 'Email' validation errors\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.find(item => item.code === \"Email\")).not.eq(undefined);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Contains 'Password' validation errors\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.find(item => item.code === \"Password\")).not.eq(undefined);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"\",\r\n  \"lastName\": \"\",\r\n  \"email\": \"\",\r\n  \"password\": \"\",\r\n  \"confirmPassword\": \"\",\r\n  \"birthDate\": \"2021-06-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create duplicated user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const duplicatedEmail = pm.variables.replaceIn('{{$randomEmail}}');\r",
+									"const host = pm.variables.replaceIn('{{host}}');\r",
+									"\r",
+									"const createUserBody = {\r",
+									"    \"firstName\": pm.variables.replaceIn('{{$randomFirstName}}'),\r",
+									"    \"lastName\": pm.variables.replaceIn('{{$randomLastName}}'),\r",
+									"    \"email\": duplicatedEmail,\r",
+									"    \"password\": \"Abcd1234\",\r",
+									"    \"confirmPassword\": \"Abcd1234\",\r",
+									"    \"birthDate\": \"2021-06-03\"\r",
+									"};\r",
+									"console.log('body', createUserBody);\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: `${host}/users`,\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(createUserBody)\r",
+									"    }\r",
+									"}, function (_, res) {\r",
+									"    if (res.code == 201) {\r",
+									"        pm.variables.set(\"duplicatedEmail\", duplicatedEmail);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Unprocessed Entity Result - Status 422\", function () {\r",
+									"    pm.response.to.have.status(422)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Contains 'E-mail Duplicated' validation errors\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const validationError = jsonData.find(item => item.code === \"Email\");\r",
+									"\r",
+									"    pm.expect(validationError).not.eq(undefined);\r",
+									"    pm.expect(validationError.description).contains('alread exists');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastName\": \"{{$randomLastName}}\",\r\n  \"email\": \"{{duplicatedEmail}}\",\r\n  \"password\": \"Abcd1234\",\r\n  \"confirmPassword\": \"Abcd1234\",\r\n  \"birthDate\": \"2021-06-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create valid user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request - Status 201\", function () {\r",
+									"    pm.response.to.have.status(201)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"User ID is present\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"{{$randomFirstName}}\",\r\n  \"lastName\": \"{{$randomLastName}}\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"password\": \"Abcd1234\",\r\n  \"confirmPassword\": \"Abcd1234\",\r\n  \"birthDate\": \"2021-06-03\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove unregistered user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{$guid}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{$guid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove registered user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const host = pm.variables.replaceIn('{{host}}');\r",
+									"const createUserBody = {\r",
+									"    \"firstName\": pm.variables.replaceIn('{{$randomFirstName}}'),\r",
+									"    \"lastName\": pm.variables.replaceIn('{{$randomLastName}}'),\r",
+									"    \"email\": pm.variables.replaceIn('{{$randomEmail}}'),\r",
+									"    \"password\": \"Abcd1234\",\r",
+									"    \"confirmPassword\": \"Abcd1234\",\r",
+									"    \"birthDate\": \"1990-06-03\"\r",
+									"};\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: `${host}/users`,\r",
+									"    method: 'POST',\r",
+									"    header: 'content-type: application/json',\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify(createUserBody)\r",
+									"    }\r",
+									"}, function (_, res) {\r",
+									"    if (res.code == 201) {\r",
+									"        var registeredUserId = res.json().id;\r",
+									"        pm.variables.set(\"registeredUserId\", registeredUserId);\r",
+									"    }\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/users/{{registeredUserId}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"{{registeredUserId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

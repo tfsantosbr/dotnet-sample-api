@@ -1,0 +1,14 @@
+{
+	"id": "27a69bd4-7b66-4de9-9413-0687e733aea7",
+	"name": "Docker",
+	"values": [
+		{
+			"key": "host",
+			"value": "http://localhost:5000",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-06-03T22:35:21.410Z",
+	"_postman_exported_using": "Postman/8.5.1"
+}

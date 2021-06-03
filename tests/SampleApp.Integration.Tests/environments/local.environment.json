@@ -1,0 +1,14 @@
+{
+	"id": "e98174ac-104b-487f-a90a-61bfecd6f476",
+	"name": "Local",
+	"values": [
+		{
+			"key": "host",
+			"value": "https://localhost:5001",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-06-03T19:26:48.017Z",
+	"_postman_exported_using": "Postman/8.5.1"
+}

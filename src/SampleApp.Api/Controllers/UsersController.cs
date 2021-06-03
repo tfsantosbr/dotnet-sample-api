@@ -4,6 +4,7 @@ using SampleApp.Domain.Users.Commands;
 using SampleApp.Domain.Users.Handlers;
 using SampleApp.Domain.Users.Models;
 using SampleApp.Domain.Users.Repository;
+using SampleApp.Shared.Notifications;
 using SampleApp.Shared.Notifications.Interfaces;
 using System;
 
@@ -70,7 +71,9 @@ namespace SampleApp.Api.Controllers
         public IActionResult RemoveUser(Guid userId)
         {
             if (!_userRepository.AnyUser(userId))
-                return NotFound();
+            {
+                return NotFound(new Notification("User", "User not found"));
+            }
 
             _handler.Handle(new RemoveUser { UserId = userId });
 
@@ -82,7 +85,7 @@ namespace SampleApp.Api.Controllers
         {
             if (!_userRepository.AnyUser(userId))
             {
-                return NotFound();
+                return NotFound(new Notification("User", "User not found"));
             }
 
             request.UserId = userId;
@@ -102,7 +105,7 @@ namespace SampleApp.Api.Controllers
         {
             if (!_userRepository.AnyUser(userId))
             {
-                return NotFound();
+                return NotFound(new Notification("User", "User not found"));
             }
 
             request.UserId = userId;
