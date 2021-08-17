@@ -1,7 +1,7 @@
 # dotnet-tests-code-coverage
 Cobertura de código nos testes de uma aplicação .NET
 
-## Funcionalidades
+## Implementações
 
 - CQRS Pattern
 - Notification Pattern
