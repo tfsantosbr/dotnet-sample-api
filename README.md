@@ -22,6 +22,20 @@ Cobertura de código nos testes de uma aplicação .NET
 - [Automatizando testes de APIs REST com Postman + Newman](https://renatogroffe.medium.com/automatizando-testes-de-apis-rest-com-postman-newman-a90f0d90df09)
 
 
+## Comandos para executar os Testes Unitários
+
+```bash
+dotnet test ./tests/SampleApp.Tests --verbosity minimal --logger:"html;LogFileName=tests-results.html" --collect:"XPlat Code Coverage"
+```
+
+## Gerar relatório de Cobertura de Testes
+
+```bash
+cd ./tests/SampleApp.Tests/TestResults
+cd $(ls -d */|head -n 1)
+reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
+```
+
 ## Comandos para Rodar os Testes Integrados
 
 ```bash
