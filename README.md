@@ -1,4 +1,5 @@
-# dotnet-tests-code-coverage
+# .NET Complete Sample API
+
 Cobertura de código nos testes de uma aplicação .NET
 
 ## Implementações
@@ -20,7 +21,6 @@ Cobertura de código nos testes de uma aplicação .NET
 - [POSTMAN: Dynamic Variables](https://learning.postman.com/docs/writing-scripts/script-references/variables-list/)
 - [Running collections on the command line with Newman](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)
 - [Automatizando testes de APIs REST com Postman + Newman](https://renatogroffe.medium.com/automatizando-testes-de-apis-rest-com-postman-newman-a90f0d90df09)
-
 
 ## Comandos para executar os Testes Unitários
 
