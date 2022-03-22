@@ -40,7 +40,7 @@ namespace SampleApp.Domain.Users.Repository
 
         public bool AnyEmail(Email email, Guid ignoredUserId)
         {
-            return _users.Any(u =>
+            return _users.ToArray().Any(u =>
                 u.Email.Address == email.Address &&
                 u.Id != ignoredUserId
                 );

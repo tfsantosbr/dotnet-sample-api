@@ -59,7 +59,7 @@ namespace SampleApp.Domain.Users.Handlers
                 LastName = user.CompleteName.LastName,
                 BirthDate = user.BirthDate,
                 Email = user.Email.Address,
-                Password = user.Password.Value 
+                Password = user.Password.Value
             };
 
             _userEventsHandler.Handle(userCreated);

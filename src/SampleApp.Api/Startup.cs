@@ -27,6 +27,7 @@ namespace SampleApp.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SampleApp.Api", Version = "v1" });
             });
 
+            services.AddHealthChecks();
             services.AddNotifications();
 
             services.AddTransient<UserCommandsHandler>();
@@ -52,6 +53,7 @@ namespace SampleApp.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/healthz");
             });
         }
     }
