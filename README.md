@@ -30,6 +30,14 @@ dotnet test ./tests/SampleApp.Tests --verbosity minimal --logger:"html;LogFileNa
 
 ## Gerar relatório de Cobertura de Testes
 
+Instalando a ferramenta de geração de relatório globalmente:
+
+```bash
+dotnet tool install --global dotnet-reportgenerator-globaltool
+```
+
+Gerando o relatório:
+
 ```bash
 cd ./tests/SampleApp.Tests/TestResults
 cd $(ls -d */|head -n 1)
@@ -37,6 +45,14 @@ reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:coveragereport" -r
 ```
 
 ## Comandos para Rodar os Testes Integrados
+
+Instalando a ferramenta newman para gerar os testes integrados:
+
+```bash
+npm install -g newman
+```
+
+Executando os testes integrados
 
 ```bash
 newman run tests/SampleApp.Integration.Tests/integration-tests.json -e tests/SampleApp.Integration.Tests/environments/docker.environment.json --insecure
