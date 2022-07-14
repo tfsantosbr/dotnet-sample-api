@@ -1,8 +1,12 @@
-# directories
-**/bin/
-**/obj/
-**/out/
-
-# files
+*/bin
+*/obj
+.dockerignore
+.env
+.git
+.gitignore
+.vs
+.vscode
+**/.toolstarget
+.idea
 Dockerfile*
 **/*.md
