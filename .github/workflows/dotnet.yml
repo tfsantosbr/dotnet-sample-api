@@ -8,15 +8,13 @@ on:
 
 env:
   TEST_PROJECT_PATH: ./tests/SampleApp.Tests
-
-  NOME_WEBAPP: groffe-apitemperatura
   IMAGE_NAME: tfsantosbr/dotnet-sample-api
   INTEGRATION_TESTS_PATH: ./tests/SampleApp.Integration.Tests
 
 jobs:
   tests:
+    name: Tests Step
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -28,7 +26,7 @@ jobs:
       - name: Test Application
         run: dotnet test ${{ env.TEST_PROJECT_PATH }} --verbosity minimal --logger:"html;LogFileName=tests-results.html" --collect:"XPlat Code Coverage"
 
-      - name: Install Tests Respot Tools
+      - name: Install Tests Report Tools
         if: success()
         run: dotnet tool install --global dotnet-reportgenerator-globaltool
 
@@ -60,6 +58,7 @@ jobs:
           retention-days: 30
 
   build:
+    name: Build Step
     needs: [tests]
     runs-on: ubuntu-latest
 
