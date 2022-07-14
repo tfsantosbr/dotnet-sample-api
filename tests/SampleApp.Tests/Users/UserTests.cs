@@ -1,6 +1,5 @@
 ﻿using SampleApp.Domain.Core.ValueObjects;
 using SampleApp.Domain.Entities;
-using System;
 using Xunit;
 
 namespace SampleApp.Tests.Users
@@ -13,9 +12,9 @@ namespace SampleApp.Tests.Users
             // arrange
 
             static void createUser() => new User(
-                completeName: null,
-                email: null,
-                password: null,
+                completeName: new CompleteName(string.Empty, string.Empty),
+                email: new Email(string.Empty),
+                password: new Password(string.Empty),
                 birthDate: new DateTime()
                 );
 
@@ -34,10 +33,10 @@ namespace SampleApp.Tests.Users
             // arrange
 
             var user = new User(
-                completeName: new CompleteName("Tiago","Santos"),
+                completeName: new CompleteName("Tiago", "Santos"),
                 email: new Email("tiago@email.com"),
                 password: new Password("PaSsW0rd"),
-                birthDate: new DateTime(1987,3,13)
+                birthDate: new DateTime(1987, 3, 13)
                 );
 
             // act
