@@ -30,7 +30,7 @@ namespace SampleApp.Api.Controllers
         {
             var user = _handler.Handle(request);
 
-            if (_notifier.HasNotifications())
+            if (user is null || _notifier.HasNotifications())
             {
                 return UnprocessableEntity(_notifier.GetNotifications());
             }

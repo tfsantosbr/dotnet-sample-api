@@ -9,8 +9,8 @@ namespace SampleApp.Domain.Commands
     {
         [JsonIgnore]
         public Guid UserId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get; set; } = null!;
+        public string LastName { get; set; } = null!;
 
         public override bool IsValid()
         {

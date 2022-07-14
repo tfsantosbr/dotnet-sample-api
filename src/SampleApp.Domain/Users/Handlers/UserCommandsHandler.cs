@@ -23,7 +23,7 @@ namespace SampleApp.Domain.Users.Handlers
             _notifier = notifier;
         }
 
-        public User Handle(CreateUser request)
+        public User? Handle(CreateUser request)
         {
             // validations
 

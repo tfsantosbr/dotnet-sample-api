@@ -16,7 +16,7 @@ namespace SampleApp.Domain.Users.Repository
             _users.Add(user);
         }
 
-        public User GetById(Guid id)
+        public User? GetById(Guid id)
         {
             return _users.FirstOrDefault(u => u.Id == id);
         }
