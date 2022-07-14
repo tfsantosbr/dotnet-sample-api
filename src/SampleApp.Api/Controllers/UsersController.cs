@@ -80,7 +80,7 @@ namespace SampleApp.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut("{userId}/details")]
+        [HttpPatch("{userId}/details")]
         public IActionResult UpdateUserDetails(Guid userId, UpdateUserDetails request)
         {
             if (!_userRepository.AnyUser(userId))
@@ -100,7 +100,7 @@ namespace SampleApp.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut("{userId}/password")]
+        [HttpPatch("{userId}/password")]
         public IActionResult UpdateUserPassword(Guid userId, UpdateUserPassword request)
         {
             if (!_userRepository.AnyUser(userId))
