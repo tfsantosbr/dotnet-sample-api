@@ -77,3 +77,8 @@ jobs:
       - name: Run Integration Tests
         run: |
           newman run ${{ env.INTEGRATION_TESTS_PATH }}/integration-tests.json -e ${{ env.INTEGRATION_TESTS_PATH }}/environments/docker.environment.json
+
+      - name: Run Load Tests (K6)
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: tests/SampleApp.Load.Tests/script.js
