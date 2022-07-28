@@ -82,3 +82,4 @@ jobs:
         uses: grafana/k6-action@v0.2.0
         with:
           filename: tests/SampleApp.Load.Tests/script.js
+          flags: --env HOSTNAME=http://localhost:5000
