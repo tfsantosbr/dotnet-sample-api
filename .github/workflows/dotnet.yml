@@ -71,7 +71,7 @@ jobs:
 
       - name: Run Containered API
         run: |
-          docker run -p 5000:80 -d ${{ env.IMAGE_NAME }}:latest
+          docker run -p 5000:80 -d ${{ env.IMAGE_NAME }}:latest --network host
           docker container ls
 
       - name: Run Integration Tests
@@ -86,4 +86,4 @@ jobs:
         uses: grafana/k6-action@v0.2.0
         with:
           filename: tests/SampleApp.Load.Tests/script.js
-          flags: --env HOSTNAME="http://host.docker.internal:5000"
+          flags: --env HOSTNAME="http://localhost:5000"
