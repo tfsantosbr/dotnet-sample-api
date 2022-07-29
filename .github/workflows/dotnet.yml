@@ -71,7 +71,7 @@ jobs:
 
   integration-tests:
     name: Integration Tests Step
-    needs: [tests]
+    needs: [build]
     runs-on: ubuntu-latest
 
     steps:
