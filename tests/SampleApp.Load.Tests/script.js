@@ -27,7 +27,7 @@ export default function () {
 }
 
 function healthCheck() {
-  const url = `${hostname}/healthz`;
+  const url = `${hostname}/health`;
   const res = http.get(url);
 
   check(res, {

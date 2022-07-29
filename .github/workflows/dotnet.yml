@@ -78,10 +78,14 @@ jobs:
         run: |
           newman run ${{ env.INTEGRATION_TESTS_PATH }}/integration-tests.json -e ${{ env.INTEGRATION_TESTS_PATH }}/environments/docker.environment.json
 
+      - name: REST API with curl
+        run: |
+          curl -X GET "http://localhost:5000/health"
+
       - name: curl
         uses: wei/curl@master
         with:
-          args: http://localhost:5000/healthz
+          args: http://localhost:5000/health
 
       - name: Run Load Tests (K6)
         uses: grafana/k6-action@v0.2.0
