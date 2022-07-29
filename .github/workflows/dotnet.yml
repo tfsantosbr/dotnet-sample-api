@@ -71,7 +71,7 @@ jobs:
 
       - name: Run Containered API
         run: |
-          docker run -p 5000:80 -d ${{ env.IMAGE_NAME }}:latest --network host
+          docker run -p 5000:80 -d ${{ env.IMAGE_NAME }}:latest
           docker container ls
 
       - name: Run Integration Tests
@@ -80,10 +80,10 @@ jobs:
 
       - name: REST API with curl
         run: |
-          curl -X GET "http://localhost:5000/health"
+          curl -X GET "http://localhost:5000/healthz"
 
       - name: Run Load Tests (K6)
         uses: grafana/k6-action@v0.2.0
         with:
           filename: tests/SampleApp.Load.Tests/script.js
-          flags: --env HOSTNAME="http://localhost:5000"
+          flags: --env HOSTNAME=http://172.17.0.1:5000
