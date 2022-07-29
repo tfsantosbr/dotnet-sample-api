@@ -69,6 +69,14 @@ jobs:
         run: |
           docker build . --file src/SampleApp.Api/Dockerfile --tag ${{ env.IMAGE_NAME }}:latest
 
+  integration-tests:
+    name: Integration Tests Step
+    needs: [tests]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
       - name: Run Containered API
         run: |
           docker run -p 5000:80 -d ${{ env.IMAGE_NAME }}:latest
@@ -77,10 +85,6 @@ jobs:
       - name: Run Integration Tests
         run: |
           newman run ${{ env.INTEGRATION_TESTS_PATH }}/integration-tests.json -e ${{ env.INTEGRATION_TESTS_PATH }}/environments/docker.environment.json
-
-      - name: REST API with curl
-        run: |
-          curl -X GET "http://localhost:5000/healthz"
 
       - name: Run Load Tests (K6)
         uses: grafana/k6-action@v0.2.0
