@@ -64,9 +64,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Image Build
-        run: |
-          docker build . --file src/SampleApp.Api/Dockerfile --tag ${{ env.IMAGE_NAME }}
+      - uses: actions/checkout@v2
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
