@@ -10,7 +10,7 @@ env:
   TEST_PROJECT_PATH: ./tests/SampleApp.Tests
   IMAGE_NAME: tfsantosbr/dotnet-sample-api:latest
   INTEGRATION_TESTS_PATH: ./tests/SampleApp.Integration.Tests
-  DOCKERFILE_PATH: .src/SampleApp.Api/Dockerfile
+  DOCKERFILE_PATH: ./src/SampleApp.Api/Dockerfile
 
 jobs:
   tests:
