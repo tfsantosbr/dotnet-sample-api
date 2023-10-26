@@ -32,6 +32,24 @@ Executando os testes unitários:
 dotnet test ./tests/SampleApp.Tests --verbosity minimal --logger:"html;LogFileName=tests-results.html" --collect:"XPlat Code Coverage"
 ```
 
+## Migrations
+
+You will need [.NET EF Tools](https://docs.microsoft.com/en-us/ef/core/cli/dotnet) to run this commands
+
+```bash
+# add migration
+dotnet ef migrations add <MIGRATION_NAME> -p src/SampleApp.Infra/ -c SampleAppContext -s src/SampleApp.Api -o Contexts/Migrations
+
+# remove migration
+dotnet ef migrations remove -p src/SampleApp.Infra/ -c SampleAppContext -s src/SampleApp.Api
+
+# update database
+dotnet ef database update -p src/SampleApp.Infra -c SampleAppContext -s src/SampleApp.Api
+
+# generate scripts for manual database update
+dotnet ef migrations script -p src/SampleApp.Infra/ -c SampleAppContext -s src/SampleApp.Api -o ./scripts/migrations.sql
+```
+
 ## Cobertura de Testes
 
 Instalando a ferramenta de geração de relatório globalmente:

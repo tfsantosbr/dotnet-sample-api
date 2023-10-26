@@ -19,3 +19,21 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
       - ~/.aspnet/https:/https:ro
+    depends_on:
+      mssql:
+        condition: service_healthy
+
+  mssql:
+    image: 'mcr.microsoft.com/mssql/server'
+    container_name: mssql
+    environment:
+      SA_PASSWORD: 'Dev@123456'
+      ACCEPT_EULA: 'Y'
+    ports:
+      - 1433:1433
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "Dev@123456" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s

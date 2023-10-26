@@ -18,11 +18,15 @@ namespace SampleApp.Domain.Entities
             EnsureValidation();
         }
 
+        private User()
+        {
+        }
+
         public Guid Id { get; private set; }
-        public CompleteName CompleteName { get; private set; }
+        public CompleteName CompleteName { get; private set; } = default!;
         public DateTime BirthDate { get; private set; }
-        public Email Email { get; private set; }
-        public Password Password { get; private set; }
+        public Email Email { get; private set; } = default!;
+        public Password Password { get; private set; } = default!;
 
         public void UpdateDetails(CompleteName completeName)
         {
