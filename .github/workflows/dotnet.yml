@@ -40,7 +40,7 @@ jobs:
           reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
 
       - name: Upload Test Coverage Report
-        uses: actions/upload-artifact@v2.2.2
+        uses: actions/upload-artifact@v3
         env:
           TESTS_REPORT_PATH: ${{ env.TEST_PROJECT_PATH }}/TestResults/
         if: success()
@@ -50,7 +50,7 @@ jobs:
           retention-days: 30
 
       - name: Upload Test Failures Report
-        uses: actions/upload-artifact@v2.2.2
+        uses: actions/upload-artifact@v3
         if: failure()
         env:
           TESTS_ERRORS_REPORT_PATH: ${{ env.TEST_PROJECT_PATH }}/TestResults/tests-results.html
