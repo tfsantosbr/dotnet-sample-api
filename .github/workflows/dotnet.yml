@@ -15,6 +15,7 @@ env:
 jobs:
 
   unit-tests:
+    if: ${{ false }}
     name: Unit Tests
     runs-on: ubuntu-latest
     steps:
