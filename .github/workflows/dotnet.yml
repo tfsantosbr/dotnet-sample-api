@@ -83,7 +83,7 @@ jobs:
         uses: grafana/k6-action@v0.2.0
         with:
           filename: tests/SampleApp.Load.Tests/script.js
-          flags: --env HOSTNAME=http://172.17.0.1:5000
+          flags: --env HOSTNAME=http://localhost:5000
 
   build:
     name: Build and Push Docker Image
