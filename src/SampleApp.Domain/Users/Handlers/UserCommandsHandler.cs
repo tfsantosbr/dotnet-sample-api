@@ -82,7 +82,7 @@ namespace SampleApp.Domain.Users.Handlers
             var user = _userRepository.GetById(request.UserId);
 
             if (user is null)
-                throw new NullReferenceException(nameof(user));
+                throw new ArgumentNullException(nameof(user));
 
             user.UpdateDetails(
                 completeName: new CompleteName(request.FirstName, request.LastName)
@@ -119,7 +119,7 @@ namespace SampleApp.Domain.Users.Handlers
             var user = _userRepository.GetById(request.UserId);
 
             if (user is null)
-                throw new NullReferenceException(nameof(user));
+                throw new ArgumentNullException(nameof(user));
 
             user.UpdatePassword(new Password(request.Password));
 
@@ -143,7 +143,7 @@ namespace SampleApp.Domain.Users.Handlers
             var user = _userRepository.GetById(request.UserId);
 
             if (user is null)
-                throw new NullReferenceException(nameof(user));
+                throw new ArgumentNullException(nameof(user));
 
             _userRepository.Remove(user);
 
