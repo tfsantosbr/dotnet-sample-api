@@ -42,13 +42,13 @@ namespace SampleApp.Domain.Users.Handlers
                 birthDate: request.BirthDate
                 );
 
-            _userRepository.Add(user);
-
             if (_userRepository.AnyEmail(user.Email, user.Id))
             {
                 _notifier.AddNotification(new Notification("Email", $"E-mail '{user.Email}' alread exists."));
                 return null;
             }
+
+            _userRepository.Add(user);
 
             // send event
 
