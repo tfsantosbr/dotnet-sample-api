@@ -48,7 +48,7 @@ namespace SampleApp.Domain.Users.Repository
 
         public bool AnyEmail(Email email, Guid ignoredUserId)
         {
-            return _context.Users.ToArray().Any(u =>
+            return _context.Users.Any(u =>
                 u.Email.Address == email.Address &&
                 u.Id != ignoredUserId
                 );

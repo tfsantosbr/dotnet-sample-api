@@ -16,7 +16,6 @@ namespace SampleApp.Domain.Core.ValueObjects.Validators
                 .Length(2, 30)
                 .Matches(@"[A-Z]+").WithMessage("'Password' must contain at least one uppercase letter.")
                 .Matches(@"[0-9]+").WithMessage("'Password  must contain at least one number.");
-            ;
         }
     }
 }
