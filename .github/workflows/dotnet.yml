@@ -59,8 +59,10 @@ jobs:
           path: ${{ env.TESTS_ERRORS_REPORT_PATH }}
           retention-days: 30
 
-  integration-tests:
-    name: Integration Tests
+  # todo - code quality
+
+  integration-load-tests:
+    name: Integration and Load Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -90,7 +92,7 @@ jobs:
   build:
     name: Build and Push Docker Image
     needs:
-      - integration-tests
+      - integration-load-tests
       - unit-tests
     runs-on: ubuntu-latest
 
