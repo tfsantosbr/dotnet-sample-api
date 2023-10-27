@@ -14,51 +14,6 @@ env:
 
 jobs:
 
-  # unit-tests:
-  #   name: Unit Tests
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     - name: Setup .NET SDK
-  #       uses: actions/setup-dotnet@v2
-  #       with:
-  #         dotnet-version: 6.0.x
-
-  #     - name: Test Application
-  #       run: dotnet test ${{ env.TEST_PROJECT_PATH }} --verbosity minimal --logger:"html;LogFileName=tests-results.html" --collect:"XPlat Code Coverage"
-
-  #     - name: Install Tests Report Tools
-  #       if: success()
-  #       run: dotnet tool install --global dotnet-reportgenerator-globaltool
-
-  #     - name: Run Test Coverage Report
-  #       if: success()
-  #       run: |
-  #         cd ${{ env.TEST_PROJECT_PATH }}/TestResults
-  #         cd $(ls -d */|head -n 1)
-  #         reportgenerator "-reports:coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
-
-  #     - name: Upload Test Coverage Report
-  #       uses: actions/upload-artifact@v2.2.2
-  #       env:
-  #         TESTS_REPORT_PATH: ${{ env.TEST_PROJECT_PATH }}/TestResults/
-  #       if: success()
-  #       with:
-  #         name: tests-results
-  #         path: ${{ env.TESTS_REPORT_PATH }}
-  #         retention-days: 30
-
-  #     - name: Upload Test Failures Report
-  #       uses: actions/upload-artifact@v2.2.2
-  #       if: failure()
-  #       env:
-  #         TESTS_ERRORS_REPORT_PATH: ${{ env.TEST_PROJECT_PATH }}/TestResults/tests-results.html
-  #       with:
-  #         name: tests-errors-result
-  #         path: ${{ env.TESTS_ERRORS_REPORT_PATH }}
-  #         retention-days: 30
-
   code-quality:
     name: Code Quality Analysis
     runs-on: ubuntu-latest
