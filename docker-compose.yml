@@ -12,6 +12,7 @@ services:
       - 5000:80
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - CONNECTIONSTRINGS__SQLSERVER=Data Source=mssql;Initial Catalog=UsersDb;User ID=sa;Password=Dev@123456;
     networks:
       - sample-api-network
     depends_on:

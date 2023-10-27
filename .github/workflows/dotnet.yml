@@ -78,9 +78,6 @@ jobs:
       - name: docker ps
         run: docker-compose ps
 
-      - name: ping api
-        run: curl http://localhost:5000/swagger
-
       - name: Run Integration Tests
         run: |
           newman run ${{ env.INTEGRATION_TESTS_PATH }}/integration-tests.json -e ${{ env.INTEGRATION_TESTS_PATH }}/environments/docker.environment.json
