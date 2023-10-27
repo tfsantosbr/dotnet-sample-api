@@ -80,6 +80,20 @@ Executando os testes integrados
 newman run tests/SampleApp.Integration.Tests/integration-tests.json -e tests/SampleApp.Integration.Tests/environments/docker.environment.json --insecure
 ```
 
+## Qualidade de Código
+
+```bash
+dotnet tool install --global dotnet-sonarscanner
+dotnet tool install --global dotnet-coverage
+```
+
+```bash
+dotnet sonarscanner begin -o:tfsantosbr -k:tfsantosbr-dotnet-sample-api -d:sonar.host.url=https://sonarcloud.io -d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+dotnet build --no-incremental
+dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
+dotnet sonarscanner end
+```
+
 ## Testes de Carga
 
 Instalando a ferramenta de testes de Carga K6:
