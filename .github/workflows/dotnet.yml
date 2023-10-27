@@ -61,7 +61,7 @@ jobs:
 
   integration-tests:
     name: Integration Tests
-    needs: [unit-tests]
+    # needs: [unit-tests]
     runs-on: ubuntu-latest
 
     steps:
@@ -74,6 +74,12 @@ jobs:
 
       - name: "Wait for docker to finish building"
         run: sleep 30
+
+      - name: docker ps
+        run: docker-compose ps
+
+      - name: ping api
+        run: curl http://localhost:5000/swagger
 
       - name: Run Integration Tests
         run: |
