@@ -92,6 +92,7 @@ dotnet sonarscanner begin -o:tfsantosbr -k:tfsantosbr-dotnet-sample-api -d:sonar
 dotnet build --no-incremental
 dotnet-coverage collect 'dotnet test' -f xml  -o 'coverage.xml'
 dotnet sonarscanner end
+
 ```
 
 ## Testes de Carga
