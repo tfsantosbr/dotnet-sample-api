@@ -12,6 +12,8 @@ services:
       - 5000:80
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - sample-api-network
     depends_on:
       mssql:
         condition: service_healthy
@@ -24,9 +26,15 @@ services:
       ACCEPT_EULA: 'Y'
     ports:
       - 1433:1433
+    networks:
+      - sample-api-network
     healthcheck:
       test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "Dev@123456" -Q "SELECT 1" || exit 1
       interval: 10s
       timeout: 3s
       retries: 10
       start_period: 10s
+
+networks:
+  sample-api-network:
+    name: sample-api-network
