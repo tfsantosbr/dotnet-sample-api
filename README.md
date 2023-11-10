@@ -12,6 +12,7 @@ Cobertura de código nos testes de uma aplicação .NET
 - Testes de Carga
 - Docker
 - CI/CD com Github Actions
+- Code Quality com Sonaqube
 
 ## Referências
 
